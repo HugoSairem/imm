@@ -1,6 +1,5 @@
-import React, { useEffect, createContext, useContext, useState, useCallback } from 'react';
+import React, { createContext, useContext, useState, useCallback } from 'react';
 
-import Form from './app/Form';
 import App from './app/App';
 
 const StateContext = createContext({
@@ -31,12 +30,11 @@ const UserProvider = ({ children }) => {
       .catch((err) => {
         console.log(err);
       });
-  }, [user]);
+  }, []);
 
   return (
     <StateContext.Provider value={{ user, login }}>
       <App />
-      {!user && <Form />}
     </StateContext.Provider>
   );
 }

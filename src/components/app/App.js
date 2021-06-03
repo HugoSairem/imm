@@ -1,12 +1,9 @@
 import { useMemo } from "react";
-import { Provider } from "./Context";
 import Form from "./Form";
-import { Actions } from "./Actions";
 import { useUser } from "../UserProvider";
 
 function App() {
   const { user } = useUser();
-  const data = Actions();
 
   const renderUser = useMemo(() => {
     return (
@@ -17,15 +14,16 @@ function App() {
   }, [user]);
 
   return (
-    <Provider value={data}>
-      <div className="App">
-        <div className="wrapper">
-          <section className="left-side">
-            {renderUser}
-          </section>
-        </div>
+    <div className="App">
+      <div className="wrapper">
+        <section className="left-side">
+          {renderUser}
+        </section>
+        <section>
+          {!user && <Form />}
+        </section>
       </div>
-    </Provider>
+    </div>
   );
 }
 

@@ -1,8 +1,8 @@
-import { useState, useContext, useMemo } from "react";
+import { useState } from "react";
 import { useUser } from "../UserProvider";
 
 const Form = () => {
-  const { user, login } = useUser();
+  const { login } = useUser();
   const [logUser, setLogUser] = useState({});
 
   // Storing the Insert User Form Data.
