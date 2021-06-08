@@ -1,6 +1,10 @@
 import React, { createContext, useContext, useState, useCallback } from 'react';
+import createPersistedState from 'use-persisted-state';
 
 import App from './app/App';
+import post from '../utils/ApiExecutor';
+
+const useUserState = createPersistedState('user');
 
 const StateContext = createContext({
   user: {
@@ -11,25 +15,10 @@ const StateContext = createContext({
 });
 
 const UserProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useUserState(null);
 
   const login = useCallback(newUser => {
-    fetch("http://localhost:8000/user/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newUser),
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        setUser(data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    post('user/login', newUser, setUser);
   }, []);
 
   return (
